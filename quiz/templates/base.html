@@ -1,0 +1,65 @@
+<!DOCTYPE HTML>
+<!--
+	Typify by TEMPLATED
+	templated.co @templatedco
+	Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
+-->
+{% load staticfiles %}
+<html>
+	<head>
+		<title>bCloud Awareness Session</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="{% static 'typify-562735458/assets/css/main.css' %}" />
+		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
+	</head>
+<body>
+ <!-- Banner -->
+                        <section id="banner">
+                                <h2><strong>bCloud</strong> - Barclays gataway to private and public Cloud resorces.</h2>
+                                <p>IAAS Compute, PAAS, DBAAS, Object Storage</p>
+  			       <p>
+                               {% if user.is_authenticated %}
+                                  Welcome, {{user.username}}
+                                   {% else %} 
+                                 Please <a href="/login"i style="color: white;">Login</a> or <a href="/register"i style="color: white;">Register</a>
+                                 {% endif %}
+                                 </p>
+                                <ul class="actions">
+                                        <li><a href="/" class="button special">Main</a></li>
+                                </ul>
+                        </section>
+
+
+<!-- Before the quiz content -->
+
+<div class="container">
+
+{% block content %}
+
+{% endblock %}
+
+</div>
+
+<!-- After the quiz content -->
+
+
+
+		<!-- Footer -->
+			<footer id="footer">
+				<div class="copyright">
+					&copy; Webpage template from: <a href="http://templated.co/">TEMPLATED</a>.
+
+				</div>
+			</footer>
+
+		<!-- Scripts -->
+			<script src="{% static 'typify-562735458/assets/js/jquery.min.js' %}"></script>
+			<script src="{% static 'typify-562735458/assets/js/skel.min.js' %}"></script>
+			<script src="{% static 'typify-562735458/assets/js/util.js' %}"></script>
+			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+			<script src="{% static 'typify-562735458/assets/js/main.js' %}"></script>
+
+	</body>
+</html>
