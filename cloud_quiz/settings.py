@@ -53,6 +53,26 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
+TEMPLATE_CONTEXT_PROCESSORS = (
+'django.contrib.auth.context_processors.auth',
+'django.core.context_processors.debug',
+'django.core.context_processors.i18n',
+'django.core.context_processors.request',
+'django.core.context_processors.media',
+'django.core.context_processors.static',
+'django.contrib.messages.context_processors.messages',
+)
+
+#Authentication backends
+AUTHENTICATION_BACKENDS = (
+        'django.contrib.auth.backends.ModelBackend',
+    )
+
+
+SECRET_KEY = 'h^@hi8e&amp;q4'
+
+
+
 ROOT_URLCONF = 'cloud_quiz.urls'
 
 WSGI_APPLICATION = 'cloud_quiz.wsgi.application'

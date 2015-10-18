@@ -22,12 +22,13 @@
   			       <p>
                                {% if user.is_authenticated %}
                                   Welcome, {{user.username}}
+				   <h4><a href="/logout" style="color: white;">Logout</a> to sign in with a different user.</h4>
                                    {% else %} 
-                                 Please <a href="/login"i style="color: white;">Login</a> or <a href="/register"i style="color: white;">Register</a>
+                                 Please <a href="/login" style="color: white;">Login</a> or <a href="/register"i style="color: white;">Register</a>
                                  {% endif %}
                                  </p>
                                 <ul class="actions">
-                                        <li><a href="/" class="button special">Main</a></li>
+                                        <li><a href="/" class="button special">HOME</a></li>
                                 </ul>
                         </section>
 

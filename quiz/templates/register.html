@@ -3,12 +3,12 @@
 {% block content %}
 <section id="one" class="wrapper special">
     <div id="login">
-        <form class="form-horizontal" name="LoginForm" action="/login/" method="post">
-	<header><h2>Please enter your username and password:</h2>
+        <form class="form-horizontal" name="LoginForm" action="/register/" method="post">
+	<header><h2>Please register to take a Quiz:</h2>
         {% if messages %}
         {% for message in messages %}
          <p>{{ message }}</p>
-        <br />
+	<br />
         {% endfor %}
        {% endif %}
 
@@ -28,6 +28,12 @@
             <label class="control-label" for="password">Password</label>
             <div class="controls">
                 <input type="password" name="password" id="password" placeholder="Password">
+            </div>
+        </div>
+	<div class="control-group">
+            <label class="control-label" for="password_repeat">Repeat Password</label>
+            <div class="controls">
+                <input type="password" name="password_repeat" id="password_repeat" placeholder="Repeat Password">
             </div>
         </div>
         <div class="control-group">
