@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load staticfiles %}
 {% load i18n%}
 
 {% load quiz_tags %}
@@ -7,7 +8,9 @@
 {% block description %} {{ quiz.title }} - {{ quiz.description }} {% endblock %}
 
 {% block content %}
-
+<section id="one" class="wrapper special">
+<div id="question">
+<header><h2>{{ quiz.title }}</h2></header>
 {% if previous.answers %}
 
   <p class="muted"><small>{% trans "The previous question" %}:</small></p>
@@ -47,36 +50,47 @@
 {% trans "Question" %} {{ progress.0|add:1 }} {% trans "of" %} {{ progress.1 }}
 </div>
 {% endif %}
-
-<p>
+<header>
+<h3>
+  {{ question.content }}
+</h3>
+<p class="lead">
   <small class="muted">{% trans "Question category" %}:</small>
   <strong>{{ question.category }}</strong>
 </p>
-
-<p class="lead">{{ question.content }}</p>
-
+</header>
 {% if question.figure %}
     <img style="width: 300px;" src="{{ question.figure.url }}" alt="{{ question.content }}" />
 {% endif %}
 
 <form action="" method="POST">{% csrf_token %}
   <input type=hidden name="question_id" value="{{ question.id }}">
-
-  <ul class="list-group">
-
-	{% for answer in form.answers %}
-	  <li class="list-group-item">
-	    {{ answer }}
-	  </li>
+  <div class="row uniform"> 
+{% if form.answers.label == 'text' %}
+{{form.answers}}
+{% else %}
+	{% for radio in form.answers %}
+	<div class="4u 12u$(small)">
+        <input name="answers" type="{{form.answers.label}}" id="radio_{{ radio.index }}" value={{ radio.choice_value }}>
+        <label for="radio_{{ radio.index }}">{{ radio.choice_label }}</label>
+	</div>
 	{% endfor %}
-
-  </ul>
-  <input type="submit" value={% trans "Check" %} class="btn btn-large btn-block btn-warning" >
+{% endif %}	
+</div>
+<br />
+  <input type="submit" value={% trans "Check" %} class="button special" >
 </form>
 
 {% endif %}
 
 <hr>
-
-
+</div>
+</section>
+<script src="{% static 'typify-562735458/assets/js/jquery.min.js' %}"></script>
+<script>
+$( document ).ready(function() {
+document.getElementById('question').focus();
+window.location.hash = '#question';
+});
+</script>
 {% endblock %}

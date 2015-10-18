@@ -23,9 +23,12 @@ class MCQuestion(Question):
         verbose_name=_("Answer Order"))
 
     def check_if_correct(self, guess):
-        answer = Answer.objects.get(id=guess)
-
-        if answer.correct is True:
+	answers = []	
+	correct_answers = [x.correct for x in Answer.objects.filter(question=self) if x.correct == True]
+	for guess_iter in guess:
+            answers.append(Answer.objects.get(id=guess_iter).correct)
+	
+        if all(answers) and len(answers) == len(correct_answers):
             return True
         else:
             return False
@@ -47,7 +50,10 @@ class MCQuestion(Question):
                 self.order_answers(Answer.objects.filter(question=self))]
 
     def answer_choice_to_string(self, guess):
-        return Answer.objects.get(id=guess).content
+	answers = []
+	for guess_iter in guess:
+	    answers.append(Answer.objects.get(id=guess_iter).content)
+        return answers
 
     class Meta:
         verbose_name = _("Multiple Choice Question")

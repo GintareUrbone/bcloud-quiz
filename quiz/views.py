@@ -6,10 +6,10 @@ from django.shortcuts import get_object_or_404, render
 from django.utils.decorators import method_decorator
 from django.views.generic import DetailView, ListView, TemplateView, FormView
 
-from .forms import QuestionForm, EssayForm
+from .forms import QuestionForm, EssayForm, MultiChoiceForm
 from .models import Quiz, Category, Progress, Sitting, Question
 from essay.models import Essay_Question
-
+from multichoice.models import MCQuestion
 
 class QuizMarkerMixin(object):
     @method_decorator(login_required)
@@ -164,6 +164,8 @@ class QuizTake(FormView):
 
         if self.question.__class__ is Essay_Question:
             form_class = EssayForm
+        elif self.question.__class__ is MCQuestion:
+	   form_class = MultiChoiceForm
 
         return form_class(**self.get_form_kwargs())
 
@@ -209,6 +211,7 @@ class QuizTake(FormView):
             progress.update_score(self.question, 0, 1)
 
         if self.quiz.answers_at_end is not True:
+	    print self.question.get_answers()
             self.previous = {'previous_answer': guess,
                              'previous_outcome': is_correct,
                              'previous_question': self.question,
