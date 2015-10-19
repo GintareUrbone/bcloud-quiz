@@ -1,12 +1,17 @@
 {% extends 'base.html' %}
+{% load staticfiles %}
 {% load i18n %}
 {% block title %}
 {{ quiz.title }}
 {% endblock %}
 
 {% block content %}
+<section id="one" class="wrapper special">
+<div id="list">
+<header>
 <h2>{{ quiz.title }}</h2>
-<h3>{% trans "Category" %}: {{ quiz.category }}</h3>
+<p>{% trans "Category" %}: {{ quiz.category }}</p>
+</header>
 {% if quiz.single_attempt %}
   <h4>{% trans "You will only get one attempt at this quiz" %}.</h4>
 {% endif %}
@@ -16,4 +21,13 @@
 	{% trans "Start quiz" %}
   </a>
 </p>
+</div>
+</section>
+<script src="{% static 'typify-562735458/assets/js/jquery.min.js' %}"></script>
+<script>
+$( document ).ready(function() {
+document.getElementById('list').focus();
+window.location.hash = '#list';
+});
+</script>
 {% endblock %}

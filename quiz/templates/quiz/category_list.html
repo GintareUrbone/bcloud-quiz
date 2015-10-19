@@ -1,11 +1,15 @@
 {% extends 'base.html' %}
+{% load staticfiles %}
 {% load i18n %}
 {% block title %}{% trans "All Quizzes" %}{% endblock %}
 
 {% block content %}
+<section id="one" class="wrapper special">
+<div id="list">
+<header>
 <h2>{% trans "Category list" %}</h2>
-
-<ul>
+</header>
+<ul class="alt">
   {% for cat in category_list %}
   <li>
 	<a href="{% url 'quiz_category_list_matching' category_name=cat.category %}">
@@ -14,5 +18,13 @@
   </li>
   {% endfor %}
 </ul>
-
+</div>
+</section>
+<script src="{% static 'typify-562735458/assets/js/jquery.min.js' %}"></script>
+<script>
+$( document ).ready(function() {
+document.getElementById('list').focus();
+window.location.hash = '#list';
+});
+</script>
 {% endblock %}

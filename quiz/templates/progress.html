@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load staticfiles %}
 {% load i18n %}
 
 {% load quiz_tags %}
@@ -7,58 +8,24 @@
 {% block description %} {% trans "User Progress Page" %} {% endblock %}
 
 {% block content %}
-
-  {% if cat_scores %}
-
-  <h1>{% trans "Question Category Scores" %}</h1>
-
-  <table class="table table-bordered table-striped">
-
-	<thead>
-	  <tr>
-		<th>{% trans "Category" %}</th>
-		<th>{% trans "Correctly answererd" %}</th>
-		<th>{% trans "Incorrect" %}</th>
-		<th>%</th>
-	  </tr>
-	</thead>
-
-	<tbody>
-
-
-	  {% for cat, value in cat_scores.items %}
-	  <tr>
-		<td>{{ cat }}</td>
-		<td>{{ value.0 }}</td>
-		<td>{{ value.1 }}</td>
-		<td>{{ value.2 }}</td>
-	  </tr>
-
-	  {% endfor %}
-
-	</tbody>
-
-  </table>
-
-
-  {% endif %}
-
+<section id="one" class="wrapper special">
+<div id="list">
   {% if exams %}
 
   <hr>
-
-  <h1>{% trans "Previous exam papers" %}</h1>
+<header>
+  <h2>{% trans "Previous exam papers" %}</h1>
   <p class="lead">
 	{% trans "Below are the results of exams that you have sat." %}
   </p>
-
-  <table class="table table-bordered table-striped">
+</header>
+  <table class="table-wrapper">
 
 	<thead>
 	  <tr>
 		<th>{% trans "Quiz Title" %}</th>
-		<th>{% trans "Score" %}</th>
-		<th>{% trans "Possible Score" %}</th>
+		<th>{% trans "Correct Answers" %}</th>
+		<th>{% trans "Total Questions" %}</th>
 		<th>%</th>
 	  </tr>
 	</thead>
@@ -82,5 +49,13 @@
 
   {% endif %}
 
-
+</div>
+</section>
+<script src="{% static 'typify-562735458/assets/js/jquery.min.js' %}"></script>
+<script>
+$( document ).ready(function() {
+document.getElementById('list').focus();
+window.location.hash = '#list';
+});
+</script>
 {% endblock %}

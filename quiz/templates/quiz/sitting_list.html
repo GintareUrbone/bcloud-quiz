@@ -1,12 +1,17 @@
 {% extends 'base.html' %}
+{% load staticfiles %}
 {% load i18n %}
 {% block title %}{% trans "All Quizzes" %}{% endblock %}
 
 {% block content %}
+<section id="one" class="wrapper special">
+<div id="list">
+<header>
 <h2>{% trans "List of complete exams" %}</h2>
+</header>
     {% if sitting_list %}
 
-		<table class="table table-bordered table-striped">
+		<table id="results" class="table-wrapper results">
 
 		  <thead>
 			<tr>
@@ -19,16 +24,6 @@
 		  </thead>
 
 		  <tbody>
-			<tr>
-			  <form action="" method="GET">
-				<td><input type="text" name="user_filter" /></td>
-				<td><input type="text" name="quiz_filter" /></td>
-				<td></td>
-				<td></td>
-				<td><button type="submit" class="btn btn-default">{% trans "Filter"%}</button></td>
-			  </form>
-			</tr>
-
 
         {% for sitting in sitting_list %}
 
@@ -51,4 +46,20 @@
     {% else %}
         <p>{% trans "There are no matching quizzes" %}.</p>
     {% endif %}
+</div>
+</section>
+<script src="{% static 'typify-562735458/assets/js/jquery.min.js' %}"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/r/dt/dt-1.10.9/datatables.min.css"/>
+ 
+<script type="text/javascript" src="https://cdn.datatables.net/r/dt/dt-1.10.9/datatables.min.js"></script>
+<script>
+$( document ).ready(function() {
+document.getElementById('list').focus();
+window.location.hash = '#list';
+});
+$('#results').DataTable( {
+        "order": [[ 3, "desc" ]]
+    } );
+
+</script>
 {% endblock %}

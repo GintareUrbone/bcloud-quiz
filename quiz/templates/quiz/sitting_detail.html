@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load staticfiles %}
 {% load i18n %}
 {% load quiz_tags %}
 {% block title %}
@@ -6,22 +7,27 @@
 {% endblock %}
 
 {% block content %}
-<h2>{% trans "Quiz title" %}: {{ sitting.quiz.title }}</h2>
+<section id="one" class="wrapper special">
+<div id="list">
+<header>
+<h2>{% trans "Quiz title" %}: {{ sitting.quiz.title }}</h2><br />
 <h3>{% trans "Category" %}: {{ sitting.quiz.category }}</h3>
 <p>{{ sitting.quiz.description }}</p>
+</header>
 <hr>
-<p>{% trans "User" %}: {{ sitting.user }}</p>
-<p>{% trans "Completed" %}: {{ sitting.end|date }}</p>
-<p>{% trans "Score" %}: {{ sitting.get_percent_correct }}%</p>
-
+<ul class="alt">
+<li>{% trans "User" %}: {{ sitting.user }}</li>
+<li>{% trans "Completed" %}: {{ sitting.end|date }}</li>
+<li>{% trans "Score" %}: {{ sitting.get_percent_correct }}%</li>
+</ul>
 <table class="table table-bordered table-striped">
 
   <thead>
 	<tr>
 	  <th>{% trans "Question" %}</th>
 	  <th>{% trans "User answer" %}</th>
-	  <th></th>
-	  <th></th>
+	  <th>Correct?</th>
+	  <th>Action</th>
 	</tr>
   </thead>
 
@@ -32,21 +38,21 @@
       <td>
         {{ question.content }}
         {% if question.figure %}
-        <div style="max-width: 100px;"><img src="{{ question.figure.url }}" alt="{{ question.figure }}"/></div>
+        <div><img style="width: 100px;" src="{{ question.figure.url }}" alt="{{ question.figure }}"/></div>
         {% endif %}
       </td>
 	  <td>{{ question|answer_choice_to_string:question.user_answer }}</td>
 	  <td>
 		{% if question.id in sitting.get_incorrect_questions %}
-		  <p>{% trans "incorrect" %}</p>
+		  <p>{% trans "NO" %}</p>
 		{% else %}
-		  <p>{% trans "Correct" %}</p>
+		  <p>{% trans "YES" %}</p>
 		{% endif %}
 	  </td>
 	  <td>
 		<form action="" method="POST">{% csrf_token %}
 		  <input type=hidden name="qid" value="{{ question.id }}">
-		  <button type="submit" class="btn btn-warning">{% trans "Toggle whether correct" %}</button>
+		  <button type="submit" class="button special">{% trans "Change if correct" %}</button>
 		</form>
 	  </td>
 	</tr>
@@ -56,4 +62,14 @@
   </tbody>
 
 </table>
+</div>
+</section>
+<script src="{% static 'typify-562735458/assets/js/jquery.min.js' %}"></script>
+<script>
+$( document ).ready(function() {
+document.getElementById('list').focus();
+window.location.hash = '#list';
+});
+</script>
+
 {% endblock %}

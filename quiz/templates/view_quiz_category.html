@@ -1,13 +1,17 @@
 {% extends 'base.html' %}
+{% load staticfiles %}
 {% load i18n %}
 {% block title %}{% trans "Quizzes related to" %} {{ category.category }}{% endblock %}
 
 {% block content %}
-<h1>{% trans "Quizzes in the" %} <strong>{{ category.category }} </strong>{% trans "category" %}</h1>
-
+<section id="one" class="wrapper special">
+<div id="question">
+<header>
+<h2>{% trans "Quizzes in the" %} <strong>{{ category.category }} </strong>{% trans "category" %}</h2>
+</header>
   {% with object_list as quizzes %}
     {% if quizzes %}
-        <ul>
+        <ul class="alt">
         {% for quiz in quizzes %}
             <li>
 			  <a href="{% url 'quiz_question' quiz_name=quiz.url %}">
@@ -20,4 +24,13 @@
         <p>{% trans "There are no quizzes" %}</p>
     {% endif %}
   {% endwith %}
+</div>
+</section>
+<script src="{% static 'typify-562735458/assets/js/jquery.min.js' %}"></script>
+<script>
+$( document ).ready(function() {
+document.getElementById('question').focus();
+window.location.hash = '#question';
+});
+</script>
 {% endblock %}

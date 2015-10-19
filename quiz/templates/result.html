@@ -32,14 +32,15 @@
   {% if max_score %}
 
   <div>
+      <header>
 	<h2>{% trans "Exam results" %}</h2>
 	<p>
 	  <small class="muted">{% trans "Exam title" %}: </small>
 	  <strong>{{ quiz.title }}</strong></p>
-
-	<p class="lead">
+	</header>
+	<blockquote>
 	  {% trans "You answered" %} {{ score }} {% trans "questions correctly out of" %} {{ max_score }}, {% trans "giving you" %} {{ percent }} {% trans "percent correct" %}
-	</p>
+	</blockquote>
 
 	{% if quiz.pass_mark %}
 	<hr>
@@ -74,17 +75,18 @@
   {% endif %}
 
   {% if questions %}
-
+<ul class="alt">
     {% for question in questions %}
 
-      <p class="lead">
-		{{ question.content }}
+      <li>
+	<p>{{ question.content }}
 	  </p>
 
 	  {% correct_answer_for_all question %}
 
       {% if question.user_answer %}
       <p>{% trans "Your answer" %}: {{ question|answer_choice_to_string:question.user_answer }}</p>
+	</li>
       {% endif %}
 
 	  <p><strong>{% trans "Explanation" %}:</strong></p>

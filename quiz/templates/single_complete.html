@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load staticfiles %}
 {% load i18n %}
 
 {% load quiz_tags %}
@@ -7,12 +8,22 @@
 {% block description %} {{ quiz.title }} - {{ quiz.description }} {% endblock %}
 
 {% block content %}
-
+<section id="one" class="wrapper special">
+<div id="list">
 
 {% if user.is_authenticated %}
   <p>{% trans "You have already sat this exam and only one sitting is permitted" %}.</p>
 {% else %}
   <p>{% trans "This exam is only accessible to signed in users" %}.</p>
 {% endif %}
+</div>
+</section>
+<script src="{% static 'typify-562735458/assets/js/jquery.min.js' %}"></script>
+<script>
+$( document ).ready(function() {
+document.getElementById('list').focus();
+window.location.hash = '#list';
+});
+</script>
 
 {% endblock %}
