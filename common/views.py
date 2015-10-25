@@ -6,7 +6,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist 
-
+from common import models
 
 def login_user(request):
     logout(request)
@@ -58,3 +58,17 @@ def register_user(request):
 	messages.add_message(request, messages.INFO, msg)
     return render_to_response('register.html', context_instance=RequestContext(request))
 
+
+def save_feedback(request):
+    msg = "There are errors in the form."
+    if request.POST:
+        username = request.POST['user'] or None
+	feedback_text = request.POST['feedback_text'] or None
+        try:
+	    user = User.objects.get(username=username)
+    	    feedback = models.Feedback.objects.create(user=user, feedback_text=feedback_text)
+	    msg = "Thank you for your feedback!"
+	except Exception, e:
+	    msg = e
+    messages.add_message(request, messages.SUCCESS, msg)
+    return HttpResponseRedirect('/#feedback')

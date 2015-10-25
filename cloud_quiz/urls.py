@@ -18,4 +18,5 @@ urlpatterns = patterns('',
     url(r'^accounts/login/', 'common.views.login_user'),
     url(r'^accounts/logout/$', 'django.contrib.auth.views.logout', name='logout', kwargs={'next_page': '/'}),
     url(r'^register/', 'common.views.register_user'),
+    url(r'leave_feedback', 'common.views.save_feedback'),
 ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
